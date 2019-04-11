@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour {
 
 	[SerializeField] private Transform target;
+	[SerializeField] private float zoomSensitivity = 0.003f;
 
 	private Vector3 zoomAmount;
 	private float distanceToTarget;
@@ -20,12 +21,12 @@ public class CameraZoom : MonoBehaviour {
 	private void LateUpdate() {
 		if(target.localScale.x + 1 < Mathf.Abs(zoomAmount.z) && target.localScale.y + 1 < Mathf.Abs(zoomAmount.z) && target.localScale.z + 1 < Mathf.Abs(zoomAmount.z)) {
 			if(Input.mouseScrollDelta.y < 0) {
-				zoom -= 0.003f * Mathf.Abs(transform.localPosition.z);
+				zoom -= zoomSensitivity * Mathf.Abs(transform.localPosition.z);
 				SetZoom(zoom);
 			}
 		}
 		if(Input.mouseScrollDelta.y > 0) {
-			zoom += 0.003f * Mathf.Abs(transform.localPosition.z);
+			zoom += zoomSensitivity * Mathf.Abs(transform.localPosition.z);
 			SetZoom(zoom);
 		}
 		transform.LookAt(target);
